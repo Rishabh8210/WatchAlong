@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { titleData } from '@/constant/titleData'
 const HomePageTitleSlidingBar = () => {
     const [title, setTitle] = useState('');

@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import { titleData } from '@/constant/titleData'
 import HomePageTitleSlidingBar from './HomePageTitleSlidingBar'
 import Link from 'next/link'
 const HomePageMain = () => {
