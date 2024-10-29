@@ -1,0 +1,27 @@
+import React, { useEffect, useState } from 'react'
+import { titleData } from '@/constant/titleData'
+const HomePageTitleSlidingBar = () => {
+    const [title, setTitle] = useState('');
+    const [count, setCount] = useState(0);
+    function changeTitle(){
+        if(count == titleData.length){
+            setCount(0)
+            setTitle(titleData[0])
+            setCount(1);
+        } else{
+            setTitle(titleData[count])
+            setCount(count+1);
+        }
+    }
+    const id = setInterval(() => {
+        changeTitle();
+        clearInterval(id);
+    }, 5000);
+    return (
+        <div className='h-fit w-full text-center px-2 flex'>
+            <p className='text-5xl font-semibold leading-tight transition-all'>{title}.</p>
+        </div>
+    )
+}
+
+export default HomePageTitleSlidingBar
