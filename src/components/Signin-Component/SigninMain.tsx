@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 
-const Signin = () => {
+const SigninMain = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     return (
@@ -39,4 +39,4 @@ const Signin = () => {
     )
 }
 
-export default Signin
+export default SigninMain
