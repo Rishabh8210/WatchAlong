@@ -9,7 +9,7 @@ const HeaderComponent = () => {
                 <p className={isStyle ? 'text-3xl absolute -top-10 transition-all font-mono font-semibold pointer-events-none' : 'text-3xl absolute  top-0 transition-all font-mono font-semibold pointer-events-none'}>WatchAlong.</p>
                 <p className={isStyle ? 'text-3xl absolute top-0 transition-all uppercase font-mono font-semibold pointer-events-none' : 'text-3xl absolute top-10 transition-all font-mono font-semibold pointer-events-none'}>WatchAlong!</p>
             </div>
-            <img className='h-[70px] cursor-pointer hover:scale-110 hover:rotate-12 transition-all' src='./Logo.png' alt='#Logo' />
+            <img className='h-[60px] cursor-pointer hover:scale-110 hover:rotate-12 transition-all' src='./Logo.png' alt='#Logo' />
         </div>
     )
 }
