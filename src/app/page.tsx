@@ -1,4 +1,5 @@
 import AboutUs from "@/components/About-Component/AboutUs";
+import FooterComponent from "@/components/Common-Component/FooterComponent";
 import HeaderComponent from "@/components/Common-Component/HeaderComponent";
 import HomePageMain from "@/components/HomePage-Component/HomePageMain";
 import StepsToBeFollowed from "@/components/StepsToBeFollowed/StepsToBeFollowed";
@@ -12,6 +13,7 @@ export default function Home() {
       <AboutUs />
       <StepsToBeFollowed />
       <Testonomial />
+      <FooterComponent />
     </div>
   );
 }
