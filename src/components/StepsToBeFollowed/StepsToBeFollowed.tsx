@@ -3,7 +3,7 @@ import Header from './Header'
 
 const StepsToBeFollowed = () => {
   return (
-    <div className='h-fit w-full flex flex-col items-center justify-center px-5 py-4 gap-2'>
+    <div className='h-[60vh] w-full flex flex-col justify-around items-center p-5 gap-2 '>
         <Header />
         <div className='h-fit w-full border-b-2 p-3 rounded-xl hover:bg-zinc-900'>
             <p className='text-xl font-semibold pointer-events-none'>1. Create a room</p>

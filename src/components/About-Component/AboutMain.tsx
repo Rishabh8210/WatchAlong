@@ -2,11 +2,11 @@ import React from 'react'
 
 const AboutMain = () => {
     return (
-        <div className='h-fit w-full flex flex-col items-center justify-center'>
+        <div className='h-fit w-full flex flex-col items-center justify-center py-3'>
             <div className='h-fit w-full p-2'>
-                <p className='text-center leading-loose'>With <span className='text-lg px-3 py-1.5 text-red-600 bg-zinc-800 rounded-xl'>WatchAlong</span> you can watch YouTube together. Services like Vimeo, Netflix, Amazon, Disney & Co are also supported. Create a room and invite friends to your WatchParty.</p>
+                <p className='text-center leading-loose'>With <span className='text-lg px-2.5 font-bold py-1.5 text-red-600 bg-zinc-800 rounded-lg'>WatchAlong</span> you can watch YouTube together. Services like Vimeo, Netflix, Amazon, Disney & Co are also supported. Create a room and invite friends to your WatchParty.</p>
             </div>
-            <div className='h-fit w-full py-5 flex flex-col gap-3 px-4'>
+            <div className='h-fit w-full pt-5 flex flex-col gap-3 px-4'>
                 <div className='h-fit w-full flex gap-3'>
                     <p>✔️</p>
                     <p className='break-words'>Synchronized player for video and audio</p>
