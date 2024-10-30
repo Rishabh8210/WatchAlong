@@ -1,5 +1,4 @@
 import React from 'react'
-import AboutHeader from './AboutHeader'
 
 const AboutMain = () => {
     return (
