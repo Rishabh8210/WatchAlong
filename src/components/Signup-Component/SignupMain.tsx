@@ -8,7 +8,7 @@ const SignupMain = () => {
     const [confirmPassword, setConfirmPassword] = useState('')
     return (
         <div className='min-h-[40vh] w-full md:w-2/5 p-5 rounded-md border-2 flex justify-center items-center bg-zinc-900 border-zinc-700'>
-            <form className="h-fit w-full flex flex-col justify-center items-center gap-3">
+            <form className="h-fit w-full flex flex-col justify-center items-center gap-3 text-white">
 
                 <div className="h-fit w-full flex justify-center items-center flex-col">
                     <p className="px-4 md:px-6 w-full font-semibold">Name</p>

@@ -18,8 +18,8 @@ const HomePageTitleSlidingBar = () => {
         clearInterval(id);
     }, 5000);
     return (
-        <div className='h-fit w-full text-center px-2'>
-            <p className='text-5xl font-semibold leading-tight transition-all pointer-events-none'>{title}.</p>
+        <div className='h-fit w-full text-center px-2 text-white'>
+            <p className='text-5xl font-semibold leading-tight transition-all pointer-events-none dark:text-white'>{title}.</p>
         </div>
     )
 }
