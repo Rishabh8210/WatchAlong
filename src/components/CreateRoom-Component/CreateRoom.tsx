@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import RoomsHeader from './RoomsHeader'
 import PasteUrlCard from './PasteUrlCard'
