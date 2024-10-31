@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import VideoPlaybackCard from './VideoPlaybackCard'
 const PasteUrlCard = () => {
     const [url, setUrl] = useState('')
     return (
@@ -15,6 +16,7 @@ const PasteUrlCard = () => {
             <div className='h-fit w-full flex justify-center py-2'>
                 <button className='h-11 font-semibold w-24 border-2 border-zinc-800 rounded-lg hover:bg-white hover:text-black transition-all'>Search</button>
             </div>
+            {url.length != 0 && <VideoPlaybackCard videoUrl = {url} />}
         </div>
     )
 }
