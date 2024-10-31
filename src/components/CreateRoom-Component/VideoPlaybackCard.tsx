@@ -9,7 +9,7 @@ const VideoPlaybackCard = ({videoUrl}: VideoPlaybackUrlAttributes) => {
     const getVideoId = videoId.searchParams.get('v');
     return (
         <div>
-            <iframe width="300" height="315" src={`https://www.youtube.com/embed/${getVideoId}?si=9hUebuS5ux3slBeW`} title="YouTube video player" frameBorder={'0'} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+            <iframe className='w-full' height="315" src={`https://www.youtube.com/embed/${getVideoId}?si=9hUebuS5ux3slBeW`} title="YouTube video player" frameBorder={'0'} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
         </div>
     )
 }
