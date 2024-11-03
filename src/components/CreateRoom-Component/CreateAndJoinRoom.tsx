@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 export interface PropsAttributes {
     setTrigger: () => void
 }
@@ -16,7 +17,7 @@ const CreateAndJoinRoom = ({ setTrigger }: PropsAttributes) => {
                         <p>Create a Room or Join Your Friends to Enjoy Together</p>
                     </div>
                     <div className='h-fit w-fit flex pt-5 text-white justify-center items-center flex-col gap-3'>
-                        <button className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white' >Create Room</button>
+                        <Link href={'/rooms'} className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white' >Create Room</Link>
                     </div>
                     <div className='h-fit w-fit flex text-white justify-center items-center flex-col gap-3'>
                         <button className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white' >Join Room</button>
