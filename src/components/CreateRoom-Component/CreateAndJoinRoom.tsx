@@ -8,7 +8,7 @@ export interface PropsTriggerAttributes {
 const CreateAndJoinRoom = ({ setTrigger }: PropsTriggerAttributes) => {
     const [isJoinRoomPopup, setJoinRoomPopup] = useState(false);
     function handleClick(){
-        setJoinRoomPopup(true);
+        setJoinRoomPopup(!isJoinRoomPopup);
     }
     return (
         <div className='h-screen w-full bg-zinc-800 bg-opacity-80 fixed top-0 left-0 p-5 flex justify-center items-center'>
@@ -22,10 +22,10 @@ const CreateAndJoinRoom = ({ setTrigger }: PropsTriggerAttributes) => {
                         <p>Create a Room or Join Your Friends to Enjoy Together</p>
                     </div>
                     <div className='h-fit w-fit flex pt-5 text-white justify-center items-center flex-col gap-3'>
-                        <Link href={'/rooms'} className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white' >Create Room</Link>
+                        <Link href={'/rooms'} className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white hover:border-white' >Create Room</Link>
                     </div>
                     <div className='h-fit w-fit flex text-white justify-center items-center flex-col gap-3'>
-                        <button className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white' onClick={() => handleClick()}  >Join Room</button>
+                        <button className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white hover:border-white' onClick={() => handleClick()}  >Join Room</button>
                     </div>
                 </div>
             </div>

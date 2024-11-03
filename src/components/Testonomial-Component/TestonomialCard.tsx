@@ -2,7 +2,7 @@ import React from 'react'
 
 const TestonomialCard = () => {
   return (
-    <div className='min-h-[40vh] w-full py-5 flex justify-between flex-col gap-10 flex-shrink-0'>
+    <div className='min-h-[40vh] w-full py-5  flex justify-between flex-col gap-10 flex-shrink-0'>
         <div className='h-fit w-full'>
             <p>I just wanted to say that WatchAlong is absolutely wonderful, me and my girlfriend are in a long-distance relationship and we use it all the time.</p>
         </div>
