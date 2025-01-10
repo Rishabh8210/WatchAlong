@@ -20,7 +20,7 @@ const HomePageHeader = () => {
                     <button className="bg-yellow-600 h-fit uppercase p-1.5 w-full rounded-md text-xl font-mono font-semibold hover:text-yellow-600 hover:bg-transparent hover:border-2 border-zinc-700">Create Room</button>
                 </Link>
                 <Link href={'/signin'} className="hidden md:flex h-10 w-28 justify-center items-center flex-col">
-                    <button className="bg-green-600 h-fit p-1.5 w-full rounded-md text-lg font-mono font-semibold hover:text-green-600 hover:bg-transparent hover:border-2 border-zinc-700">SignIn</button>
+                    <button className="bg-green-600 h-fit p-1.5 w-full rounded-md text-lg font-mono font-semibold uppercase hover:text-green-500 hover:bg-transparent hover:border-2 border-zinc-700">Sign-In</button>
                 </Link>
             </div>
             <img className='h-[60px] sm:hidden cursor-pointer hover:scale-110 hover:rotate-12 transition-all' src='./Logo.png' alt='#Logo' onClick={() => setDropDown(!openDropDown)} />

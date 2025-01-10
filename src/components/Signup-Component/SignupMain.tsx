@@ -58,7 +58,7 @@ const SignupMain = () => {
                 </div>
 
                 <div className="h-fit w-full flex justify-center items-center flex-col pt-2">
-                    <button className="bg-green-600 h-fit p-1.5 w-5/12 rounded-lg text-lg font-semibold hover:text-green-600 hover:bg-transparent hover:border-2 border-zinc-700">Register</button>
+                    <button className="bg-green-600 h-fit p-1.5 w-5/12 rounded-lg text-lg font-semibold border-2 border-green-600 hover:text-green-500 hover:bg-transparent hover:border-zinc-700 transition-all">Register</button>
                 </div>
             </form>
         </div>
