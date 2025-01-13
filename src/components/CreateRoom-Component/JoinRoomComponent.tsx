@@ -4,7 +4,7 @@ const JoinRoomComponent = ({ setTrigger }: PropsTriggerAttributes) => {
     const [roomCode, setRoomCode] = useState('');
     return (
         <div className='h-screen w-full bg-zinc-800 bg-opacity-80 fixed top-0 left-0 p-5 flex justify-center items-center'>
-            <div className='min-h-[60vh] relative w-full p-5 bg-black rounded-lg border-zinc-700 border-2 flex flex-col items-end justify-end gap-5 shadow-zinc-800 shadow-2xl text-white'>
+            <div className='min-h-[50vh] relative w-full sm:w-10/12 md:w-9/12 lg:max-w-3xl p-5 bg-black rounded-lg border-zinc-700 border-2 flex flex-col items-end justify-end gap-5 shadow-zinc-800 shadow-2xl text-white'>
                 <div className='h-fit w-full flex justify-end items-center absolute right-5 top-4'>
                     <button className='text-3xl font-semibold' onClick={() => setTrigger()}>X</button>
                 </div>
