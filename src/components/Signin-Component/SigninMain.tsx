@@ -5,7 +5,7 @@ const SigninMain = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     return (
-        <div className='min-h-[40vh] w-full sm:w-3/4 md:w-3/4 p-5 rounded-md border-2 flex justify-center items-center bg-zinc-900 border-zinc-700'>
+        <div className='min-h-[40vh] w-full sm:w-10/12 md:w-9/12 lg:max-w-3xl p-5 rounded-md border-2 flex justify-center items-center bg-zinc-900 border-zinc-700'>
             <form className="h-fit w-full flex flex-col justify-center items-center gap-5 text-white">
                 <div className="h-fit w-full flex justify-center items-center flex-col">
                     <p className="px-4 md:px-6 w-full font-semibold">Email</p>
