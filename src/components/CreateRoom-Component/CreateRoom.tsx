@@ -4,10 +4,10 @@ import RoomsHeader from './RoomsHeader'
 import PasteUrlCard from './PasteUrlCard'
 
 
-const CreateRoom = ({roomId}:any) => {
+const CreateRoom = () => {
   return (
     <div className='h-full w-full flex flex-col gap-5'>
-        <RoomsHeader roomId = {roomId}/>
+        <RoomsHeader />
         <PasteUrlCard />
     </div>
   )

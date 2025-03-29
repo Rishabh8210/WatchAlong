@@ -21,6 +21,7 @@ const VideoPlaybackCard = ({ videoUrl }: VideoPlaybackUrlAttributes) => {
                     setError(false);
                 }
             } catch (error) {
+                console.log(error);
                 setError(true);
             }
         };

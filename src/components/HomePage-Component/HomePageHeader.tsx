@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import DropDownMenu from '../Common-Component/DropDownMenu';
-import Link from 'next/link';
 import { getrandomString } from '../../utils/getRandomstring';
 
 const HomePageHeader = () => {
