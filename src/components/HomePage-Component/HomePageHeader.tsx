@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import DropDownMenu from '../Common-Component/DropDownMenu';
 import Link from 'next/link';
+import { getrandomString } from '../../utils/getRandomstring';
 
 const HomePageHeader = () => {
     const [isStyle, setStyle] = useState(false);
@@ -16,7 +17,7 @@ const HomePageHeader = () => {
                 <p className={isStyle ? 'text-3xl absolute top-0 transition-all uppercase font-mono font-semibold pointer-events-none dark:text-white' : 'text-3xl absolute top-10 transition-all font-mono font-semibold pointer-events-none dark:text-white'}>WatchAlong!</p>
             </div>
             <div className='hidden h-fit w-full sm:flex items-center justify-end gap-5'>
-                <Link href={'/rooms'} className="hidden sm:flex h-10 w-44 justify-center items-center flex-col">
+                <Link href={`/rooms/${getrandomString()}`} className="hidden sm:flex h-10 w-44 justify-center items-center flex-col">
                     <button className="bg-yellow-600 h-fit uppercase p-1.5 w-full rounded-md text-xl font-mono font-semibold hover:text-yellow-600 hover:bg-transparent hover:border-2 border-zinc-700">Create Room</button>
                 </Link>
                 <Link href={'/signin'} className="hidden md:flex h-10 w-28 justify-center items-center flex-col">
