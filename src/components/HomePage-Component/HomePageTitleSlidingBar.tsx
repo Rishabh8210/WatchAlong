@@ -19,7 +19,7 @@ const HomePageTitleSlidingBar = () => {
     }, 5000);
     return (
         <div className='h-fit w-full text-center px-2 text-white'>
-            <p className='text-5xl font-semibold leading-tight transition-all pointer-events-none dark:text-white'>{title}.</p>
+            <p className='text-5xl font-semibold leading-tight transition-all pointer-events-none dark:text-white animate-bounce' >{title} <span className='text-purple-600'>Together.</span></p>
         </div>
     )
 }

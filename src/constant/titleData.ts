@@ -1,1 +1,1 @@
-export const titleData = ["Watch Together", "Listen Together", "Explore Together", "Play Together", "Spend Time Together"];
+export const titleData = ["Watch", "Listen", "Explore", "Play", "Spend Time"];
