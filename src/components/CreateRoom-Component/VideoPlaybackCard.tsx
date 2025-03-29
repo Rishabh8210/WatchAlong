@@ -33,7 +33,7 @@ const VideoPlaybackCard = ({ videoUrl }: VideoPlaybackUrlAttributes) => {
         return (
             <div className='py-5 flex flex-col gap-5'>
                 <p className="text-red-600 text-center font-semibold">Invalid video link</p>
-                <p className='tex-white text-center font-semibold'>Use 'https://' in-front of your url if it is not there</p>
+                <p className='tex-white text-center font-semibold'>Use &apos;https://&lsquo; in-front of your url if it is not there</p>
             </div>
         )
     }
