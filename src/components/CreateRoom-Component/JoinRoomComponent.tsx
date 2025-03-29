@@ -1,7 +1,16 @@
+'use client'
 import React, { useState } from 'react'
 import { PropsTriggerAttributes } from './CreateAndJoinRoom'
+import { useRouter } from 'next/navigation';
 const JoinRoomComponent = ({ setTrigger }: PropsTriggerAttributes) => {
     const [roomCode, setRoomCode] = useState('');
+    const router = useRouter();
+    function handleClick(){
+        // verify that the unique code exist or not [skippable]
+        setTrigger();
+        router.push(`/rooms/${roomCode}`)
+    }
+
     return (
         <div className='h-screen w-full bg-zinc-800 bg-opacity-80 fixed top-0 left-0 p-5 flex justify-center items-center'>
             <div className='min-h-[50vh] relative w-full sm:w-10/12 md:w-9/12 lg:max-w-3xl p-5 bg-black rounded-lg border-zinc-700 border-2 flex flex-col items-end justify-end gap-5 shadow-zinc-800 shadow-2xl text-white'>
@@ -24,7 +33,7 @@ const JoinRoomComponent = ({ setTrigger }: PropsTriggerAttributes) => {
                         />
                     </div>
                     <div className='h-fit w-fit flex text-white justify-center items-center flex-col gap-3'>
-                        <button className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white hover:border-white'>Join Room</button>
+                        <button className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white hover:border-white' onClick={handleClick}>Join Room</button>
                     </div>
                 </div>
             </div>

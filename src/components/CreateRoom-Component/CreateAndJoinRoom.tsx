@@ -1,15 +1,24 @@
+'use client'
 import React, { useState } from 'react'
-import Link from 'next/link'
 import JoinRoomComponent from './JoinRoomComponent';
 import { getrandomString } from '../../utils/getRandomstring';
+import { useRouter } from 'next/navigation';
 export interface PropsTriggerAttributes {
     setTrigger: () => void
 }
 
 const CreateAndJoinRoom = ({ setTrigger }: PropsTriggerAttributes) => {
+    const router = useRouter()
     const [isJoinRoomPopup, setJoinRoomPopup] = useState(false);
+    
     function handleClick(){
         setJoinRoomPopup(!isJoinRoomPopup);
+    }
+    
+    function goToRoom(){
+        
+        const str = getrandomString()
+        router.push(`/rooms/${str}`);
     }
     
     return (
@@ -24,7 +33,7 @@ const CreateAndJoinRoom = ({ setTrigger }: PropsTriggerAttributes) => {
                         <p>Create a Room or Join Your Friends to Enjoy Together</p>
                     </div>
                     <div className='h-fit w-fit flex pt-5 text-white justify-center items-center flex-col gap-3'>
-                        <Link href={`/rooms/${getrandomString()}`} className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white hover:border-white' >Create Room</Link>
+                        <button className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white hover:border-white' onClick={()=>goToRoom()}>Create Room</button>
                     </div>
                     <div className='h-fit w-fit flex text-white justify-center items-center flex-col gap-3'>
                         <button className='h-fit w-fit px-4 py-2 text-lg font-semibold transition-all rounded-lg border-2 border-zinc-700 bg-zinc-900 hover:bg-zinc-950 dark:text-white hover:border-white' onClick={() => handleClick()}  >Join Room</button>

@@ -13,7 +13,7 @@ const PasteUrlCard = () => {
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder='https://yourwebite.com/video'
             />
-            {url.length != 0 && <VideoPlaybackCard videoUrl = {url} />}
+            {url && <VideoPlaybackCard videoUrl = {url} />}
         </div>
     )
 }
