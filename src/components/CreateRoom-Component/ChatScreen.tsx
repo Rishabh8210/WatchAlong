@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ReceiverMessage from './ReceiverMessage';
 import SenderMessage from './SenderMessage';
 import { useChatScroll } from '@/hooks/useChatScroll';
