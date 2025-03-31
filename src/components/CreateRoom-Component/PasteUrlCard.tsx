@@ -5,11 +5,15 @@ import { useParams } from 'next/navigation'
 import ChatScreen from './ChatScreen'
 const PasteUrlCard = () => {
     const { roomId } = useParams();
-    const [url, setUrl] = useState('https://www.youtube.com/watch?v=8of5w7RgcTc')
+    const [url, setUrl] = useState('')
     const [userId, setUserId] = useState('');
     const [socket, setSocket] = useState<WebSocket | null>(null);
+    const [connectedUsersCount, setConnectedUsersCount ] = useState(0);
+
+    const NEXT_PUBLIC_WEBSOCKET_URL = process.env.NEXT_PUBLIC_WEBSOCKET_URL as string;
+
     useEffect(() => {
-        const newSocket = new WebSocket('ws://localhost:3000');
+        const newSocket = new WebSocket(NEXT_PUBLIC_WEBSOCKET_URL);
         newSocket.onopen = () => {
             setSocket(newSocket);
             console.log("Connection established");
@@ -24,10 +28,15 @@ const PasteUrlCard = () => {
             const data = JSON.parse(message.data);
             console.log(data);
 
+            if(data?.type === 'connected-users-count'){
+                setConnectedUsersCount(data?.count);
+            } 
+
             if(data?.type === 'connection-established'){
-                console.log("ihih");
-                setUserId(data?.userId);
+                setUserId(data?.userId); 
+                newSocket.send(JSON.stringify({type:'connected-users-count'}));
             }
+
             if(data?.message?.data){
                 setUrl(data?.message?.data || '');
             }
@@ -39,6 +48,18 @@ const PasteUrlCard = () => {
 
         return () => newSocket.close();
     }, [])
+
+    useEffect(() => {
+        if(socket && socket.readyState === WebSocket.OPEN) {
+            socket.onmessage = (message) => {
+                const data = JSON.parse(message.data);
+                console.log("data", data);
+                if(data?.type === 'connected-users-count'){
+                    setConnectedUsersCount(data?.count);
+                }    
+            }
+        }
+    }, [connectedUsersCount])
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>){
         
@@ -91,7 +112,7 @@ const PasteUrlCard = () => {
             />
             <div className='w-full h-fit flex flex-col gap-10 md:gap-0 md:flex-row justify-between items-center'>
                 <VideoPlaybackCard videoUrl = {url} />
-                {userId && <ChatScreen socket = {socket} userId = {userId} roomId= {roomId}/>}
+                {userId && <ChatScreen socket = {socket} userId = {userId} roomId= {roomId} count = {connectedUsersCount}/>}
             </div>
         </div>
     )

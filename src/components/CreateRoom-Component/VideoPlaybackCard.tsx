@@ -12,7 +12,6 @@ const VideoPlaybackCard = ({ videoUrl }: VideoPlaybackUrlAttributes) => {
     useEffect(() => {
         const extractVideoId = () => {
             try {
-                console.log(videoUrl);
                 if(!videoUrl){
                     setError('Enter video link to WatchAlong')
                 } else {

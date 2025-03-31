@@ -7,6 +7,7 @@ interface ISocket {
     socket: WebSocket | null
     userId: string
     roomId: string | string[] | undefined
+    count?: number
 }
 
 export interface IMessage {
@@ -15,7 +16,7 @@ export interface IMessage {
     roomId: string | string[]
 }
 
-const ChatScreen = ({ socket, userId, roomId }: ISocket) => {
+const ChatScreen = ({ socket, userId, roomId, count }: ISocket) => {
     const [message, setMessage] = useState('');
     const [allMessages, setAllMessage] = useState<IMessage[]>([])
 
@@ -26,8 +27,6 @@ const ChatScreen = ({ socket, userId, roomId }: ISocket) => {
             if (socket.readyState === WebSocket.OPEN) {
                 socket.onmessage = (message) => {
                     const data = JSON.parse(message.data);
-                    console.log("Hii",data);
-
                     if (data?.type === 'new-message') {
                         setAllMessage((prev) => [...prev, {userId:data?.userId, roomId: data?.roomId, message:data?.message}])
                     }
@@ -58,10 +57,11 @@ const ChatScreen = ({ socket, userId, roomId }: ISocket) => {
 
     return (
         <div className='w-full md:w-[30%] h-[50vh] md:h-[65vh] lg:h-[75vh] border-2 border-zinc-700 rounded-xl relative'>
-            <div className='h-fit w-full py-2 px-5'>
-                <p className='text-2xl font-semibold text-center'>Chats</p>
+            <div className='h-fit w-full py-2 px-5 flex justify-between items-center'>
+                <p className='text-2xl font-semibold font-sans'>Chats</p>
+                <p className='text-md font-sans font-semibold'>Users connected - <span className='text-red-500 text-lg font-semibold'>{count}</span></p>
             </div>
-            <div ref={ref} className='h-[84%] w-full py-2 flex flex-col gap-4 overflow-y-auto'>
+            <div ref={ref} className='h-[84%] w-full py-2 flex flex-col gap-4 overflow-y-auto transition-all'>
                 {
                     allMessages && allMessages.map((message, ind) => {
                         if(message.userId === userId){
