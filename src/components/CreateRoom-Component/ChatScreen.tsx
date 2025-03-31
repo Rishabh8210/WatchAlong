@@ -8,6 +8,7 @@ interface ISocket {
     userId: string
     roomId: string | string[] | undefined
     count?: number
+    allMessage: IMessage[]
 }
 
 export interface IMessage {
@@ -16,24 +17,10 @@ export interface IMessage {
     roomId: string | string[]
 }
 
-const ChatScreen = ({ socket, userId, roomId, count }: ISocket) => {
+const ChatScreen = ({ socket, userId, roomId, count, allMessage }: ISocket) => {
     const [message, setMessage] = useState('');
-    const [allMessages, setAllMessage] = useState<IMessage[]>([])
-
-    const ref = useChatScroll(allMessages)
-
-    useEffect(() => {
-        if (socket) {
-            if (socket.readyState === WebSocket.OPEN) {
-                socket.onmessage = (message) => {
-                    const data = JSON.parse(message.data);
-                    if (data?.type === 'new-message') {
-                        setAllMessage((prev) => [...prev, {userId:data?.userId, roomId: data?.roomId, message:data?.message}])
-                    }
-                }
-            }
-        }
-    }, [socket])
+    const ref = useChatScroll(allMessage)
+    console.log(count);
 
     function handleClick() {
         console.log(userId);
@@ -63,7 +50,7 @@ const ChatScreen = ({ socket, userId, roomId, count }: ISocket) => {
             </div>
             <div ref={ref} className='h-[84%] w-full py-2 flex flex-col gap-4 overflow-y-auto transition-all'>
                 {
-                    allMessages && allMessages.map((message, ind) => {
+                    allMessage && allMessage.map((message, ind) => {
                         if(message.userId === userId){
                             return <SenderMessage key={ind} {...message} />
                         } else {

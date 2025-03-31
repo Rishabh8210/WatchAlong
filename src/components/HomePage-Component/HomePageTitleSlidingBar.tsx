@@ -6,14 +6,17 @@ const HomePageTitleSlidingBar = () => {
 
     useEffect(() => {
         const id = setTimeout(() => {
-            if (count === titleData.length) {
-                setTitle(titleData[0])
-                setCount(1);
-            } else {
-                setCount((prev) => prev + 1);
-                setTitle(titleData[count])
-            }
-        }, 3000)
+            setCount((prevCount) => {
+                const newCount = prevCount + 1;
+                if (newCount >= titleData.length) {
+                    setTitle(titleData[0]);
+                    return 0;
+                } else {
+                    setTitle(titleData[newCount]); 
+                    return newCount;
+                }
+            });
+        }, 3000);
 
         return () => clearTimeout(id);
     }, [count])
