@@ -24,12 +24,21 @@ Ensure you have the following installed:
  ```bash
     git clone https://github.com/Rishabh8210/WatchAlong.git
     cd WatchAlong
+    
+    # WatchAlong WebSocket Service 
+    git clone https://github.com/Rishabh8210/WatchAlong-Websocket-Service.git
+    cd WatchAlong-Websocket-Service
  ```
- 2. Install dependencies:
+ 2. Setup Environment Variable Create a `.env.local` file and add `env data`, start variable naming with `NEXT_PUBLIC_`
+ ```
+    # for example
+    NEXT_PUBLIC_WEBSOCKET_URL=localhost:3000
+ ```
+ 3. Install dependencies:
  ```bash
     npm install
  ```
- 3. Start the application:
+ 4. Start the application:
  ```bash
     npm run dev
  ```

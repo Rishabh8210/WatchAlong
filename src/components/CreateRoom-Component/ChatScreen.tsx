@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ReceiverMessage from './ReceiverMessage';
 import SenderMessage from './SenderMessage';
 import { useChatScroll } from '@/hooks/useChatScroll';
+import { randomColors } from '@/constant/titleData';
 
 interface ISocket {
     socket: WebSocket | null
@@ -54,7 +55,7 @@ const ChatScreen = ({ socket, userId, roomId, count, allMessage }: ISocket) => {
                         if(message.userId === userId){
                             return <SenderMessage key={ind} {...message} />
                         } else {
-                            return <ReceiverMessage key={ind} {...message} />
+                            return <ReceiverMessage key={ind} {...message} color = {randomColors[ind % randomColors.length]} />
                         }
                     })
                 }
