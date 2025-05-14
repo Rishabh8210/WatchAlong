@@ -34,6 +34,9 @@ const PasteUrlCard = () => {
             console.log("Get", data?.type);
 
             if (data?.type === 'connection-established') {
+                if(data?.currentlyPlaying){
+                    setUrl(data?.currentlyPlaying)
+                }
                 setUserId(data?.userId);
             }
 
@@ -125,12 +128,12 @@ const PasteUrlCard = () => {
                 placeholder='https://yourwebite.com/video'
             />
             <div className='w-full h-fit flex flex-col gap-10 md:gap-0 md:flex-row justify-between items-center'>
-                <div className='h-[50vh] md:h-[65vh] lg:h-[75vh] w-[68%] py-5'>
+                <div className='h-fit w-full md:w-[68%] flex flex-col gap-2'>
                     <VideoPlaybackCard ref={parentRef} videoUrl={url} />
                     {   
                         url && (<div className='h-fit w-fit flex gap-10'>
-                            <button onClick={() => handleClick('play')}><Play size={28} /></button>
                             <button onClick={() => handleClick('pause')}><Pause size={28} /></button>
+                            <button onClick={() => handleClick('play')}><Play size={28} /></button>
                             <button onClick={() => handleClick('seek-l')}><StepBack size={28} /></button>
                             <button onClick={() => handleClick('seek-r')}><StepForward size={28} /></button>
                         </div>)

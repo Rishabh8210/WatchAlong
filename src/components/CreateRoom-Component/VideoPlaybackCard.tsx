@@ -17,16 +17,17 @@ const VideoPlaybackCard = forwardRef(({ videoUrl }: VideoPlaybackUrlAttributes, 
     const [videoId, setVideoId] = useState('');
     const playerRef = useRef<any>(null)
     const [isPlaying, setIsPlaying] = useState(false);
-
     useEffect(() => {
         try {
             if (!videoUrl) {
+                setVideoId('');
                 setError('Enter video link to WatchAlong')
             } else {
                 const url = new URL(videoUrl);
                 const v = url.searchParams.get('v');
                 console.log(v);
                 if (!v) {
+                    setVideoId('');
                     setError('Video not found');
                 } else {
                     setVideoId(v);
@@ -53,37 +54,47 @@ const VideoPlaybackCard = forwardRef(({ videoUrl }: VideoPlaybackUrlAttributes, 
             }
         },
         handleSeek: (seek: string) => {
-            if(playerRef.current?.seekTo){
-                if(seek === 'seek-l'){
-                    const newTime = playerRef.current?.getCurrentTime() - 10;
-                    playerRef.current?.seekTo(newTime, true);
-                } else {
-                    const newTime = playerRef.current?.getCurrentTime() + 10;
-                    playerRef.current?.seekTo(newTime, true);
-                }
+            if (playerRef.current?.seekTo) {
+                const time = playerRef.current.getCurrentTime();
+                playerRef.current.seekTo(
+                    seek === "seek-l" ? time - 10 : time + 10,
+                    true
+                );
             }
         }
     }));
     useEffect(() => {
         if (!videoId) {
             console.log("Video gayii");
+            if (playerRef.current && playerRef.current.destroy) {
+                playerRef.current.destroy();
+                playerRef.current = null;
+            }
             return;
         }
 
         const onYouTubeIframeAPIReady = () => {
-            playerRef.current = new window.YT.Player('yt-player', {
-                videoId,
-                playerVars: {
-                    autoplay: 0,
-                    controls: 0,
-                    rel: 0,
-                    modestbranding: 1,
-                    disablekb: 1
-                },
-                events: {
-                    onReady: () => console.log('Player ready !')
+            if (!playerRef.current) {
+
+                playerRef.current = new window.YT.Player('yt-player', {
+                    videoId,
+                    playerVars: {
+                        autoplay: 0,
+                        controls: 0,
+                        rel: 0,
+                        modestbranding: 1,
+                        disablekb: 1
+                    },
+                    events: {
+                        onReady: () => console.log('Player ready !')
+                    }
+                })
+            } else {
+                if (playerRef.current.loadVideoById) {
+                    playerRef.current.loadVideoById(videoId);
+                    playerRef.current.pauseVideo();
                 }
-            })
+            }
         }
 
         if (window.YT && window.YT.Player) {
@@ -95,36 +106,7 @@ const VideoPlaybackCard = forwardRef(({ videoUrl }: VideoPlaybackUrlAttributes, 
             document.body.appendChild(tag);
         }
 
-        // if (playerRef.current) {
-        //     playerRef.current.loadVideoById(videoId);
-        //     playerRef.current.pauseVideo();
-        // } else {
-        //     playerRef.current = new (window as any).YT.Player('yt-player', {
-        //         videoId: videoId,
-        //         playerVars: {
-        //             autoplay: 0,
-        //             controls: 0,
-        //             rel: 0,
-        //             modestbranding: 1,
-        //             disablekb: 1,
-        //         },
-        //         events: {
-        //             onReady: () => console.log('Player ready'),
-        //             onStateChange: () => handleVideoChange()
-        //         }
-        //     })
-        // }
     }, [videoId])
-
-    // useEffect(() => {
-    //     const tag = document.createElement('script');
-    //     tag.src = 'https://www.youtube.com/iframe_api',
-    //         document.body.appendChild(tag);
-
-    //     (window as any).onYouTubeIframeAPIReady = () => {
-    //         console.log("Youtube is reeady !");
-    //     }
-    // }, [])
 
 
     function handleVideoChange() {
@@ -133,14 +115,14 @@ const VideoPlaybackCard = forwardRef(({ videoUrl }: VideoPlaybackUrlAttributes, 
 
     if (error) {
         return (
-            <div className='w-full h-full py-5 flex justify-center items-center flex-col gap-5'>
+            <div className='w-full h-[55vh] md:h-[65vh] lg:h-[75vh] py-5 flex justify-center items-center flex-col gap-5'>
                 <p className="text-red-600 text-center font-semibold">{error}</p>
             </div>
         )
     }
 
     return (
-        <div id='yt-player' className="h-full w-full flex justify-center items-center">
+        <div id='yt-player' className="h-[55vh] md:h-[65vh] lg:h-[75vh] w-full flex justify-center items-center">
 
         </div>
     );
