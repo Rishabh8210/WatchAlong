@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } f
 
 declare global {
     interface Window {
-        YT: any;
+        YT: typeof YT;
         onYouTubeIframeAPIReady: () => void;
     }
 }
@@ -15,8 +15,8 @@ export interface VideoPlaybackUrlAttributes {
 const VideoPlaybackCard = forwardRef(({ videoUrl }: VideoPlaybackUrlAttributes, ref) => {
     const [error, setError] = useState('');
     const [videoId, setVideoId] = useState('');
-    const playerRef = useRef<any>(null)
-    const [isPlaying, setIsPlaying] = useState(false);
+
+    const playerRef = useRef<YT.Player | null>(null)
     useEffect(() => {
         try {
             if (!videoUrl) {
@@ -44,13 +44,13 @@ const VideoPlaybackCard = forwardRef(({ videoUrl }: VideoPlaybackUrlAttributes, 
         handlePlay: () => {
             if (playerRef.current?.playVideo) {
                 playerRef.current.playVideo();
-                setIsPlaying(true);
+                // setIsPlaying(true);
             }
         },
         handlePause: () => {
             if (playerRef.current?.pauseVideo) {
                 playerRef.current.pauseVideo();
-                setIsPlaying(false);
+                // setIsPlaying(false);
             }
         },
         handleSeek: (seek: string) => {
@@ -61,6 +61,24 @@ const VideoPlaybackCard = forwardRef(({ videoUrl }: VideoPlaybackUrlAttributes, 
                     true
                 );
             }
+        },
+        handleSync: (time: number) => {
+            if (playerRef.current?.seekTo) {
+                playerRef.current.seekTo(
+                    time,
+                    true
+                );
+                const t = setTimeout(() => {
+                    playerRef.current?.playVideo();
+                    clearTimeout(t);
+                }, 200)
+            }
+        },
+        handleGetCurrentTime: () => {
+            if(playerRef.current?.getCurrentTime){
+                return playerRef.current?.getCurrentTime();
+            }
+            return null;
         }
     }));
     useEffect(() => {
@@ -86,7 +104,8 @@ const VideoPlaybackCard = forwardRef(({ videoUrl }: VideoPlaybackUrlAttributes, 
                         disablekb: 1
                     },
                     events: {
-                        onReady: () => console.log('Player ready !')
+                        onReady: () => console.log('Player ready !'),
+                        
                     }
                 })
             } else {
@@ -109,10 +128,6 @@ const VideoPlaybackCard = forwardRef(({ videoUrl }: VideoPlaybackUrlAttributes, 
     }, [videoId])
 
 
-    function handleVideoChange() {
-        playerRef.current.playVideo();
-    }
-
     if (error) {
         return (
             <div className='w-full h-[55vh] md:h-[65vh] lg:h-[75vh] py-5 flex justify-center items-center flex-col gap-5'>
@@ -128,4 +143,5 @@ const VideoPlaybackCard = forwardRef(({ videoUrl }: VideoPlaybackUrlAttributes, 
     );
 });
 
+VideoPlaybackCard.displayName = 'VideoPlaybackCard';
 export default VideoPlaybackCard;

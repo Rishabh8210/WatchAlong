@@ -3,14 +3,24 @@ import React, { useEffect, useRef, useState } from 'react'
 import VideoPlaybackCard from './VideoPlaybackCard'
 import { useParams } from 'next/navigation'
 import ChatScreen, { IMessage } from './ChatScreen'
-import { Pause, Play, StepBack, StepForward } from 'lucide-react'
+import { Pause, Play, RefreshCw, StepBack, StepForward, User } from 'lucide-react'
+
+export interface PlayerHandle {
+  handlePlay: () => void;
+  handlePause: () => void;
+  handleSeek: (seek: 'seek-l' | 'seek-r') => void;
+  handleSync: (time: number) => void;
+  handleGetCurrentTime: () => number | null;
+}
+
 const PasteUrlCard = () => {
     const { roomId } = useParams();
     const [url, setUrl] = useState('')
     const [userId, setUserId] = useState('');
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [connectedUsersCount, setConnectedUsersCount] = useState(0);
-    const parentRef = useRef<any>(null);
+    const [userMakesChanges, setUserMakesChanges] = useState('')
+    const parentRef = useRef<PlayerHandle | null>(null);
 
     const [allMessage, setAllMessage] = useState<IMessage[]>([]);
 
@@ -18,6 +28,8 @@ const PasteUrlCard = () => {
 
     useEffect(() => {
         const newSocket = new WebSocket(NEXT_PUBLIC_WEBSOCKET_URL);
+        let timeout: ReturnType<typeof setTimeout> | null = null;
+
         newSocket.onopen = () => {
             setSocket(newSocket);
             console.log("Connection established");
@@ -34,7 +46,7 @@ const PasteUrlCard = () => {
             console.log("Get", data?.type);
 
             if (data?.type === 'connection-established') {
-                if(data?.currentlyPlaying){
+                if (data?.currentlyPlaying) {
                     setUrl(data?.currentlyPlaying)
                 }
                 setUserId(data?.userId);
@@ -50,6 +62,17 @@ const PasteUrlCard = () => {
             }
 
             if (data?.type === 'player-controler') {
+                setUserMakesChanges(data?.userId);
+
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
+
+                timeout = setTimeout(() => {
+                    setUserMakesChanges('');
+                    timeout = null
+                }, 2000)
+
                 if (data?.message?.data === 'play') {
                     if (parentRef.current?.handlePlay) {
                         parentRef.current?.handlePlay();
@@ -57,6 +80,10 @@ const PasteUrlCard = () => {
                 } else if (data?.message?.data === 'pause') {
                     if (parentRef.current?.handlePause) {
                         parentRef.current?.handlePause();
+                    }
+                } else if (data?.message?.data === 'sync') {
+                    if (parentRef.current?.handlePlay && parentRef.current?.handleSync) {
+                        parentRef.current?.handleSync(data?.time);
                     }
                 } else {
                     if (parentRef.current?.handleSeek) {
@@ -97,14 +124,27 @@ const PasteUrlCard = () => {
     function handleClick(option: string) {
         console.log(option);
         if (socket && socket.readyState === WebSocket.OPEN) {
-            const data = {
-                roomId: roomId,
-                type: 'player-controler',
-                message: {
-                    data: option
+            if (parentRef.current?.handleGetCurrentTime) {
+                let currentTime = parentRef.current?.handleGetCurrentTime();
+            
+                if(!currentTime){
+                    currentTime = 0;
                 }
+
+                const delayInMs = currentTime > (300 / 1000) ? 300 : 0;
+
+                const adjustedTime = currentTime - (delayInMs / 1000);
+                const data = {
+                    userId,
+                    roomId: roomId,
+                    time: adjustedTime,
+                    type: 'player-controler',
+                    message: {
+                        data: option
+                    }
+                }
+                socket.send(JSON.stringify(data));
             }
-            socket.send(JSON.stringify(data));
         } else {
             setSocket(null)
         }
@@ -127,19 +167,34 @@ const PasteUrlCard = () => {
                 onChange={handleChange}
                 placeholder='https://yourwebite.com/video'
             />
-            <div className='w-full h-fit flex flex-col gap-10 md:gap-0 md:flex-row justify-between items-center'>
-                <div className='h-fit w-full md:w-[68%] flex flex-col gap-2'>
+            <div className='w-full h-fit flex flex-col gap-10 md:gap-0 md:flex-row justify-between'>
+                <div className='h-fit w-full md:w-[68%] flex flex-col gap-5'>
                     <VideoPlaybackCard ref={parentRef} videoUrl={url} />
-                    {   
-                        url && (<div className='h-fit w-fit flex gap-10'>
-                            <button onClick={() => handleClick('pause')}><Pause size={28} /></button>
-                            <button onClick={() => handleClick('play')}><Play size={28} /></button>
-                            <button onClick={() => handleClick('seek-l')}><StepBack size={28} /></button>
-                            <button onClick={() => handleClick('seek-r')}><StepForward size={28} /></button>
+                    {
+                        url && (<div className='h-fit w-full flex items-center justify-center gap-7'>
+                            <div className='w-3/5 flex items-center justify-end gap-7'>
+                                <button onClick={() => handleClick('play')}><Play className='hover:opacity-65 transition-all hover:scale-95' size={28} /></button>
+                                <button onClick={() => handleClick('pause')}><Pause className='hover:opacity-65 transition-all hover:scale-95' size={28} /></button>
+                                <button onClick={() => handleClick('seek-l')}><StepBack className='hover:opacity-65 transition-all hover:scale-95' size={28} /></button>
+                                <button onClick={() => handleClick('seek-r')}><StepForward className='hover:opacity-65 transition-all hover:scale-95' size={28} /></button>
+                                <button onClick={() => handleClick('sync')}><RefreshCw className='hover:opacity-65 transition-all hover:scale-95' size={28} /></button>
+                            </div>
+
+                            <span className='flex items-center w-2/5'>
+                                {
+                                    userMakesChanges && (
+                                        <>
+                                            <User fill='#FFFFFF' size={20} />
+                                            <p className='text-lg pl-2'>{userMakesChanges}</p>
+                                        </>
+                                    )
+                                }
+                            </span>
+
                         </div>)
                     }
                 </div>
-                
+
                 <ChatScreen socket={socket} userId={userId} roomId={roomId} count={connectedUsersCount} allMessage={allMessage} />
             </div>
         </div>

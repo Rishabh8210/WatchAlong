@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import DropDownMenu from '../Common-Component/DropDownMenu';
 import { getrandomString } from '../../utils/getRandomstring';
+import { Logs } from 'lucide-react';
 
 const HomePageHeader = () => {
     const [isStyle, setStyle] = useState(false);
@@ -24,7 +25,7 @@ const HomePageHeader = () => {
                 <button className="bg-yellow-600 uppercase text-white hidden sm:flex py-1 px-5 w-fit h-fit rounded-md text-xl border-2 border-yellow-600 font-mono font-semibold transition-all hover:text-yellow-600 hover:bg-transparent hover:border-2 hover:border-zinc-700" onClick={handleClick}>Create Room</button>
                 <button className="bg-green-600 hidden text-white sm:flex py-1 w-fit px-5 h-fit rounded-md text-lg font-mono border-2 border-green-600 font-semibold uppercase transition-all hover:text-green-500 hover:bg-transparent hover:border-2 hover:border-zinc-700" onClick={() => router.push('/signin')}>Sign-In</button>
             </div>
-            <img className='h-[60px] sm:hidden cursor-pointer hover:scale-110 hover:rotate-12 transition-all' src='./Logo.png' alt='#Logo' onClick={() => setDropDown(!openDropDown)} />
+            <Logs color="#ffffff" size={28} strokeWidth={2.5} className='sm:hidden cursor-pointer hover:opacity-70 transition-all' onClick={() => setDropDown(!openDropDown)} />
             {openDropDown && <DropDownMenu />}
         </div>
     )
