@@ -154,14 +154,14 @@ const PasteUrlCard = () => {
         return <p className='text-center text-red-500 text-2xl font-semibold font-sans'>Sorry Connetion is not established</p>
     }
     return (
-        <div className='h-fit w-full p-5 flex flex-col gap-3 bg-black shadow-zinc-800 shadow-2xl text-white border-2 border-zinc-800 rounded-xl'>
+        <div className='h-fit w-full p-5 flex flex-col gap-3 bg-black/30 backdrop-blur-2xl text-white border border-dashed border-zinc-300 rounded-xl'>
             <div className='h-fit w-full flex items-center justify-between'>
                 <h3 className='text-lg font-semibold'>Paste url</h3>
             </div>
 
             <input
                 type='text'
-                className='w-full h-9 px-2 outline-none focus:border-white bg-transparent border-2 border-zinc-800 rounded-lg'
+                className='w-full h-9 px-2 outline-none focus:border-white bg-transparent border border-zinc-700 rounded-lg'
                 name='pasteurl'
                 value={url}
                 onChange={handleChange}
@@ -171,8 +171,8 @@ const PasteUrlCard = () => {
                 <div className='h-fit w-full md:w-[68%] flex flex-col gap-5'>
                     <VideoPlaybackCard ref={parentRef} videoUrl={url} />
                     {
-                        url && (<div className='h-fit w-full flex items-center justify-center gap-7'>
-                            <div className='w-3/5 flex items-center justify-end gap-7'>
+                        url && (<div className='h-fit w-full flex flex-wrap items-center gap-7'>
+                            <div className='h-fit w-full sm:w-fit sm:gap-10 sm:justify-end flex justify-between items-center'>
                                 <button onClick={() => handleClick('play')}><Play className='hover:opacity-65 transition-all hover:scale-95' size={28} /></button>
                                 <button onClick={() => handleClick('pause')}><Pause className='hover:opacity-65 transition-all hover:scale-95' size={28} /></button>
                                 <button onClick={() => handleClick('seek-l')}><StepBack className='hover:opacity-65 transition-all hover:scale-95' size={28} /></button>
@@ -180,7 +180,7 @@ const PasteUrlCard = () => {
                                 <button onClick={() => handleClick('sync')}><RefreshCw className='hover:opacity-65 transition-all hover:scale-95' size={28} /></button>
                             </div>
 
-                            <span className='flex items-center w-2/5'>
+                            <span className='flex w-fit'>
                                 {
                                     userMakesChanges && (
                                         <>
